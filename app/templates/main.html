@@ -9,18 +9,18 @@
     <link rel='stylesheet' type='text/css' href='/static/css/main.css' />
   </head>
   <body>
-    <!--<nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default {% if hidenav %} hidden {% endif %} hidden-sm hidden-xs">
       <div class="container">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-left">
-            <li {%- if request.path == "/" %} class="active" {% endif %}><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>       
+            <li {%- if request.path == "/" %} class="active" {% endif %}><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li {%- if request.path == "/station/get" %} class="active" {% endif %}><a href="/station/get"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> List Users</a></li>    
           </ul>         
         </div>
       </div>
-    </nav>-->
+    </nav>
     <div class="container-fluid">
     <div class="col-md-12">
       <div class="row">

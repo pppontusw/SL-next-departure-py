@@ -29,14 +29,18 @@ def getStation():
 
 @app.route('/station/get/<stationid>', methods=['GET', 'POST'])
 def getStationID(stationid):
+	if 'hidenav' in request.args:
+		hidenav = True
+	else:
+		hidenav = False 
 	Site = Query()
 	sitestable = db.table('sites')
-	stationname = sitestable.search(Site.id == stationid)[0]['name']
+	station = sitestable.search(Site.id == stationid)[0]
 	url = 'http://api.sl.se/api2/realtimedepartures.json?timewindow=20&siteid=' + stationid + '&key=' + SL_R3_KEY
 	resp, content = http.request(url)
 	sites = json.loads(str(content, 'utf8'))
 	sites = sites['ResponseData']
-	return render_template('getstationid.html', json=sites, stationname=stationname)
+	return render_template('getstationid.html', json=sites, station=station, hidenav=hidenav)
 
 @app.route('/')
 def index():

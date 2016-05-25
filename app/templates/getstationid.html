@@ -3,7 +3,7 @@
 <div class="container">
   <div class="col-md-12">
     <div class="row">
-    <h3>{{stationname}}</h3>
+    <h3>{{station.name}}</h3>
     </div>
     {% if json.Metros %}
       <div class="row">
@@ -13,7 +13,6 @@
           <tr>
           <th>Linje</th>
           <th>Destination</th>
-          <th>GroupOfLine</th>
           <th>Avgång</th>
           </tr>
         </thead>
@@ -22,7 +21,6 @@
           <tr>
           <td>{{metro.LineNumber}}</td>
           <td>{{metro.Destination}}</td>
-          <td>{{metro.GroupOfLine}}</td>
           <td>{{metro.DisplayTime}}</td>
           </tr>
           {% endfor %}
@@ -101,6 +99,7 @@
         </table>
       </div>
     {% endif %}
+
     </div>
   </div>
 </div>
