@@ -3,7 +3,15 @@
 <div class="container">
   <div class="col-md-12">
     <div class="row">
-    <h3>{{station.name}}</h3>
+    <h3>
+    {% if hidenav %}
+    <a href="/station/get/{{station.id}}?hidenav=true">
+    {{station.name}}</a>
+    {% else %}
+    <a href="/station/get/{{station.id}}">
+    {{station.name}}</a>
+    {% endif %}
+    </h3>
     </div>
     {% if json.Metros %}
       <div class="row">
