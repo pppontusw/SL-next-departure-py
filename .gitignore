@@ -1,2 +1,9 @@
 db.json
 config.py
+bin/
+lib/
+local/
+__pycache__/
+app/__pycache__/
+include/
+*.pyc
