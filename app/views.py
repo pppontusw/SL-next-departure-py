@@ -15,6 +15,8 @@ http = httplib2.Http()
 def getStation():
 	Sites = Query()
 	sitestable = db.table('sites')
+	if not sitestable:
+		initSL()
 	searchstationform = SearchStationForm()
 	resultsarr = []
 	if searchstationform.validate_on_submit():
@@ -35,18 +37,23 @@ def getStationID(stationid):
 		hidenav = False 
 	Site = Query()
 	sitestable = db.table('sites')
+	if not sitestable:
+		initSL()
 	station = sitestable.search(Site.id == stationid)[0]
 	url = 'http://api.sl.se/api2/realtimedepartures.json?timewindow=20&siteid=' + stationid + '&key=' + SL_R3_KEY
-	resp, content = http.request(url)
+	resp, content = http.request(url, headers={'Cache-Control': 'no-cache'})
 	sites = json.loads(str(content, 'utf8'))
 	sites = sites['ResponseData']
 	return render_template('getstationid.html', json=sites, station=station, hidenav=hidenav)
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+	sitestable = db.table('sites')
+	if not sitestable:
+		initSL()
+	return redirect(flask.url_for('getStation'))
 
-@app.route('/initSL')
+
 def initSL():
 	sitestable = db.table('sites')
 	sitestable.purge()
@@ -59,4 +66,4 @@ def initSL():
 		siteobj = {'name': sitename, 'id': site['SiteId']} 
 		sitestable.insert(siteobj)
 		print(index, site)
-	return render_template('index.html')
+	return None
