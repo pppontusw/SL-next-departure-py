@@ -1,0 +1,109 @@
+<div class="col-md-12">
+    <div class="row">
+    <h3>
+    {% if hidenav %}
+    <a href="/station/get/{{station.id}}?hidenav=true">
+    {{station.name}}</a>
+    {% else %}
+    <a href="/station/get/{{station.id}}">
+    {{station.name}}</a>
+    {% endif %}
+    </h3>
+    </div>
+    {% if json.Metros %}
+      <div class="row">
+        <table class="table table-bordered table-striped">
+        <caption>Tunnelbana</caption>
+        <thead>
+          <tr>
+          <th>Linje</th>
+          <th>Destination</th>
+          <th>Avgång</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for metro in json.Metros|sortDeparture %}
+          <tr>
+          <td>{{metro.LineNumber}}</td>
+          <td>{{metro.Destination}}</td>
+          <td>{{metro.DisplayTime}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    {% endif %}
+     {% if json.Trains %}
+      <div class="row">
+        <table class="table table-bordered table-striped">
+        <caption>Pendeltåg</caption>
+        <thead>
+          <tr>
+          <th>Linje</th>
+          <th>Destination</th>
+          <th>Avgång</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for train in json.Trains|sortDeparture %}
+          <tr>
+          <td>{{train.LineNumber}}</td>
+          <td>{{train.Destination}}{% if train.SecondaryDestinationName == None %} {% else %} via {{train.SecondaryDestinationName}} {% endif %}</td>
+          <td>{{train.DisplayTime}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    {% endif %}
+    {% if json.Trams %}
+      <div class="row">
+        <table class="table table-bordered table-striped">
+        <caption>Spårvagn</caption>
+        <thead>
+          <tr>
+          <th>Linje</th>
+          <th>Destination</th>
+          <th>GroupOfLine</th>
+          <th>Avgång</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tram in json.Trams|sortDeparture %}
+          <tr>
+          <td>{{tram.LineNumber}}</td>
+          <td>{{tram.Destination}}</td>
+          <td>{{tram.GroupOfLine}}</td>
+          <td>{{tram.DisplayTime}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    {% endif %}
+    {% if json.Buses %}
+      <div class="row">
+        <table class="table table-bordered table-striped">
+        <caption>Buss</caption>
+        <thead>
+          <tr>
+          <th>Linje</th>
+          <th>Destination</th>
+          <th>Avgång</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for buses in json.Buses|sortDeparture %}
+          <tr>
+          <td>{{buses.LineNumber}}</td>
+          <td>{{buses.Destination}}</td>
+          <td>{{buses.DisplayTime}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    </div>
+  </div>

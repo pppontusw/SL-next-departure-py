@@ -33,7 +33,7 @@ def getStation():
 			if result not in resultsarr:
 				resultsarr.append(result)
 	else:
-		results = False
+		resultsarr = False
 	return render_template('getstation.html', searchstationform=searchstationform, results=resultsarr)
 
 @app.route('/station/get/<stationid>', methods=['GET', 'POST'])
@@ -52,6 +52,19 @@ def getStationID(stationid):
 	sites = json.loads(str(content, 'utf8'))
 	sites = sites['ResponseData']
 	return render_template('getstationid.html', json=sites, station=station, hidenav=hidenav)
+
+@app.route('/station/getajax/<stationid>', methods=['GET'])
+def getStationAjax(stationid):
+	Site = Query()
+	sitestable = db.table('sites')
+	if not sitestable:
+		initSL()
+	station = sitestable.search(Site.id == stationid)[0]
+	url = 'http://api.sl.se/api2/realtimedepartures.json?timewindow=20&siteid=' + stationid + '&key=' + SL_R3_KEY
+	resp, content = http.request(url, headers={'Cache-Control': 'no-cache'})
+	sites = json.loads(str(content, 'utf8'))
+	sites = sites['ResponseData']
+	return render_template('ajaxgetstation.html', json=sites, station=station)
 
 @app.route('/')
 def index():
