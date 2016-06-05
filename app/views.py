@@ -5,6 +5,7 @@ import flask
 import httplib2
 from flask import render_template, flash, redirect, request, session
 from .forms import SearchStationForm
+import string
 from config import WTF_CSRF_ENABLED, SECRET_KEY, SL_HPL2_KEY, SL_R3_KEY
 
 db = TinyDB('db.json')
@@ -21,7 +22,13 @@ def getStation():
 	resultsarr = []
 	if searchstationform.validate_on_submit():
 		searchquery = searchstationform.data['searchstation']
-		results = sitestable.search(Sites.name.matches(searchquery))
+		newquery = searchquery[0].upper()
+		newquery = newquery+searchquery[1:].lower()
+		results = sitestable.search(Sites.name.search(searchquery))
+		for result in results:
+			if result not in resultsarr:
+				resultsarr.append(result)
+		results = sitestable.search(Sites.name.search(newquery))
 		for result in results:
 			if result not in resultsarr:
 				resultsarr.append(result)
