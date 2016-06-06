@@ -2,10 +2,10 @@
     <div class="row">
     <h3>
     {% if hidenav %}
-    <a href="/station/get/{{station.id}}?hidenav=true">
+    <a class="hidden-sm hidden-xs" href="/station/get/{{station.id}}?hidenav=true">
     {{station.name}}</a>
     {% else %}
-    <a href="/station/get/{{station.id}}">
+    <a class="hidden-sm hidden-xs" href="/station/get/{{station.id}}">
     {{station.name}}</a>
     {% endif %}
 
