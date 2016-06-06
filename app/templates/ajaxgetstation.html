@@ -8,7 +8,8 @@
     <a href="/station/get/{{station.id}}">
     {{station.name}}</a>
     {% endif %}
-    </h3>
+
+    </h3><p>Last updated: {{time|dateFormat}}</p>
     </div>
     {% if json.Metros %}
       <div class="row">

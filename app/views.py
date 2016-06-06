@@ -7,6 +7,7 @@ from flask import render_template, flash, redirect, request, session
 from .forms import SearchStationForm
 import string
 from config import WTF_CSRF_ENABLED, SECRET_KEY, SL_HPL2_KEY, SL_R3_KEY
+from datetime import datetime
 
 db = TinyDB('db.json')
 
@@ -57,6 +58,7 @@ def getStationID(stationid):
 def getStationAjax(stationid):
 	Site = Query()
 	sitestable = db.table('sites')
+	now = datetime.now()
 	if not sitestable:
 		initSL()
 	station = sitestable.search(Site.id == stationid)[0]
@@ -64,7 +66,7 @@ def getStationAjax(stationid):
 	resp, content = http.request(url, headers={'Cache-Control': 'no-cache'})
 	sites = json.loads(str(content, 'utf8'))
 	sites = sites['ResponseData']
-	return render_template('ajaxgetstation.html', json=sites, station=station)
+	return render_template('ajaxgetstation.html', json=sites, station=station, time=now)
 
 @app.route('/')
 def index():

@@ -3,9 +3,14 @@ import os
 from config import basedir
 import re
 from datetime import datetime
+from time import strftime
 
 app = Flask(__name__)
 app.config.from_object('config')
+
+@app.template_filter()
+def dateFormat(value):
+	return value.strftime('%Y-%m-%d %H:%M')
 
 @app.template_filter()
 def sortDeparture(dt):
@@ -39,5 +44,6 @@ def sortDeparture(dt):
 	return nowlist + minlist + timelist
 
 app.jinja_env.filters['sortDeparture'] = sortDeparture
+app.jinja_env.filters['dateFormat'] = dateFormat
 
 from app import views
