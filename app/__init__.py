@@ -20,7 +20,7 @@ def sortDeparture(dt):
 	for entry in dt:
 		if entry['DisplayTime'] == 'Nu':
 			nowlist.insert(0, entry)
-		if re.match(r'[0-9]+ min', entry['DisplayTime']):
+		elif re.match(r'^[0-9]+ min$', entry['DisplayTime']):
 			if len(minlist) == 0:
 				minlist.append(entry)
 			else:
@@ -32,15 +32,18 @@ def sortDeparture(dt):
 						break;
 				if entry not in minlist:
 					minlist.append(entry)
-		if re.match(r'/[0-2][0-9]:[0-5][0-9]/', entry['DisplayTime']):
-			for index, item in enumerate(minlist):
-				date1 = datetime.strptime(entry['DisplayTime'], '%H:%M')
-				date2 = datetime.strptime(item['DisplayTime'], '%H:%M')
-				if date1 < date2:
-					timelist.insert(index, entry)
-					break;
-			if entry not in timelist:
-				timelist.insert(index, entry)
+		elif re.match(r'^[0-2][0-9]:[0-5][0-9]$', entry['DisplayTime']):
+			if len(timelist) == 0:
+					timelist.append(entry)
+			else:
+				for index, item in enumerate(timelist):
+					date1 = datetime.strptime(entry['DisplayTime'], '%H:%M')
+					date2 = datetime.strptime(item['DisplayTime'], '%H:%M')
+					if date1 < date2:
+						timelist.insert(index, entry)
+						break;
+				if entry not in timelist:
+					timelist.append(entry)
 	return nowlist + minlist + timelist
 
 app.jinja_env.filters['sortDeparture'] = sortDeparture
