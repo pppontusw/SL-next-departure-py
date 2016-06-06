@@ -8,11 +8,6 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 @app.template_filter()
-def datetimefilter(value, format='%Y/%m/%d %H:%M'):
-    """convert a datetime to a different format."""
-    return value.strftime(format)
-
-@app.template_filter()
 def sortDeparture(dt):
 	nowlist = []
 	minlist = []
@@ -43,9 +38,6 @@ def sortDeparture(dt):
 				timelist.insert(index, entry)
 	return nowlist + minlist + timelist
 
-
-
 app.jinja_env.filters['sortDeparture'] = sortDeparture
-
 
 from app import views
