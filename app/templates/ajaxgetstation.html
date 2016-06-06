@@ -1,27 +1,29 @@
 <div class="col-md-12">
     <div class="row">
-    <h3>
     {% if hidenav %}
+    <h3>
     <a class="hidden-sm hidden-xs" href="/station/get/{{station.id}}?hidenav=true">
     {{station.name}}</a>
+    </h3>
     {% else %}
+    <h3>
     <a class="hidden-sm hidden-xs" href="/station/get/{{station.id}}">
     {{station.name}}</a>
+    </h3>
     {% endif %}
-
-    </h3><p>Last updated: {{time|dateFormat}}</p>
+    <p>Last updated: {{time|dateFormat}}</p>
     </div>
     {% if json.Metros %}
       <div class="row">
         <table class="table table-bordered table-striped">
         <caption>Tunnelbana</caption>
-        <thead>
+        <!--<thead>
           <tr>
           <th>Linje</th>
           <th>Destination</th>
           <th>Avgång</th>
           </tr>
-        </thead>
+        </thead>-->
         <tbody>
           {% for metro in json.Metros|sortDeparture %}
           <tr>
@@ -38,13 +40,13 @@
       <div class="row">
         <table class="table table-bordered table-striped">
         <caption>Pendeltåg</caption>
-        <thead>
+        <!--<thead>
           <tr>
           <th>Linje</th>
           <th>Destination</th>
           <th>Avgång</th>
           </tr>
-        </thead>
+        </thead>-->
         <tbody>
           {% for train in json.Trains|sortDeparture %}
           <tr>
@@ -61,13 +63,13 @@
       <div class="row">
         <table class="table table-bordered table-striped">
         <caption>Spårvagn</caption>
-        <thead>
+        <!--<thead>
           <tr>
           <th>Linje</th>
           <th>Destination</th>
           <th>GroupOfLine</th>
           <th>Avgång</th>
-          </tr>
+          </tr>-->
         </thead>
         <tbody>
           {% for tram in json.Trams|sortDeparture %}
@@ -86,13 +88,13 @@
       <div class="row">
         <table class="table table-bordered table-striped">
         <caption>Buss</caption>
-        <thead>
+        <!--<thead>
           <tr>
           <th>Linje</th>
           <th>Destination</th>
           <th>Avgång</th>
           </tr>
-        </thead>
+        </thead>-->
         <tbody>
           {% for buses in json.Buses|sortDeparture %}
           <tr>
