@@ -81,9 +81,11 @@ def initSL():
 	resp, content = http.request(url)
 	sites = json.loads(str(content, 'utf8'))
 	sites = sites['ResponseData']['Result']
+	sitesarr = []
 	for index, site in enumerate(sites):
 		sitename = site['SiteName']
 		siteobj = {'name': sitename, 'id': site['SiteId']} 
-		sitestable.insert(siteobj)
+		sitesarr.append(siteobj)
 		print(index, site)
+	sitestable.insert_multiple(sitesarr)
 	return None
