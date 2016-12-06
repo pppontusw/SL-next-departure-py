@@ -6,7 +6,7 @@ Python 3.5.x
 
 ## Instructions
 
-Clone the repo and create a config.py in the root with the following content:
+Clone the repo and create a config.py in the root with the following content
 
 ```
 import os
