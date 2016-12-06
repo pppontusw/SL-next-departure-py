@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from tinydb import TinyDB, Query
 from config import SL_HPL2_KEY
 import json
